@@ -1,8 +1,12 @@
 import React from 'react';
-import { db } from './services/client';
+import { useFetchUsers } from './hooks/hooks';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
+  const [users, loading, setLoading] = useFetchUsers();
+  console.log('users', users);
+
+  if (loading) return <div>Loading...</div>
   return (
     <div className="App">
       GitHub Usernames
