@@ -1,8 +1,9 @@
 # Planning 
-  - Libraries
+  ## Libraries
     - tailwind
     - firebase
 
+  ## File tree
   - /views
     - Home
       - State:
@@ -27,6 +28,15 @@
     - fetchProfiles (get saved profiles from FireStore)
     - addProfile (add new profile to FireStore)
 
+  ## Schema
+    - username : string
+    - profile link : string
+    - name : string
+    - public_repos : number
+    - public_gists : number
+    - followers : number
+    - following : number
+    - created_at : date
 # Explanation of Architecture Decisions
 
 # How to Get App Up and Running
