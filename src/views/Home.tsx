@@ -4,16 +4,17 @@ import { db } from '../services/client';
 import DisplayUsers from '../components/Display/DisplayUsers';
 import { useFetchUsers } from '../hooks/hooks';
 import UserForm from '../components/UserForm/UserForm';
+import { fetchGitHubProfile } from '../services/fetchGitHubProfile';
 
 const Home: React.FC = () => {
   const [users, loading, setLoading] = useFetchUsers();
   const [formState, setFormState] = useState('');
 
-  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log('clicked');
-    // add username to db here
-    // hit GitHub api
+
+    const user = await fetchGitHubProfile(formState);
+    console.log('user', user);
   }
 
   if (loading) return <div>Loading...</div>
