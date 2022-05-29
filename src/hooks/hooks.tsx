@@ -9,18 +9,22 @@ const useFetchUsers = (): [User[], boolean, Function] => {
 
   useEffect(() => {
     const colRef = collection(db, 'users');
-    let userData: any[] = [];
-    getDocs(colRef)
-    .then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        const user = doc.data() as User;
-        userData.push(user);
-      })
-      setUsers(userData);
-      setLoading(false);
-    })
-      .catch(err => console.log(err.message));
-      // eventually send this as status message
+    let userData: User[];
+
+    const fetchData = async () => {
+      try {
+        const snapshot = await getDocs(colRef);
+        snapshot.docs.forEach(doc => {
+          const user = doc.data() as User;
+          userData.push(user);
+        });
+        setUsers(userData);
+        setLoading(false);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    }
+    fetchData();
   }, [loading]);
   return [users, loading, setLoading];
 };
