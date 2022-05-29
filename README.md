@@ -39,5 +39,8 @@
     - created_at : date
 # Explanation of Architecture Decisions
   As per the instructions - there's no submit button. Treating the input as a form to best support onSubmit with key: "enter."
+
+# 3rd Party Tools
+  for utils/mungeGitHubData, I used http://json2ts.com/ to quickly convert the GitHub json object into an interface. 
 # How to Get App Up and Running
   - 

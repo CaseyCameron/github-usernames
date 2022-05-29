@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { collection } from 'firebase/firestore/lite';
+import { addDoc, collection } from 'firebase/firestore/lite';
 import { db } from '../services/client';
 import DisplayUsers from '../components/Display/DisplayUsers';
+import { fetchGitHubProfile } from '../services/fetchGitHubProfile';
+import { mungeGitHubData } from '../utils/mungeGitHubData';
 import { useFetchUsers } from '../hooks/hooks';
 import UserForm from '../components/UserForm/UserForm';
-import { fetchGitHubProfile } from '../services/fetchGitHubProfile';
 
 const Home: React.FC = () => {
   const [users, loading, setLoading] = useFetchUsers();
@@ -13,8 +14,10 @@ const Home: React.FC = () => {
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
-    const user = await fetchGitHubProfile(formState);
-    console.log('user', user);
+    const userData = await fetchGitHubProfile(formState);
+    const mungedUser = mungeGitHubData(userData);
+    console.log('userData', mungedUser)
+
   }
 
   if (loading) return <div>Loading...</div>
