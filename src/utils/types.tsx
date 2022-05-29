@@ -8,3 +8,9 @@ export type User = {
   following: number;
   created_at: string;
 };
+
+export type FormProps = {
+  formState: string;
+  setFormState: Function;
+  handleSubmit: any;
+}

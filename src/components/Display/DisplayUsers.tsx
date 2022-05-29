@@ -1,7 +1,7 @@
 import GitHubUser from './GitHubUser';
 import { User } from '../../utils/types'
 
-interface Users {
+type Users = {
   users: User[]
 }
 
