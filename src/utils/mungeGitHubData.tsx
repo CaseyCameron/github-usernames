@@ -9,7 +9,7 @@ export const mungeGitHubData = (userData: GitHubData) => {
     following, 
     created_at
   } = userData;
-  // userData.created_at = created_at.getDate()
+  
   const date = mungeDate(created_at);
   
   return { login, html_url, name, public_repos, public_gists, followers, following, created_at: date }

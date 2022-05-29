@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '../services/client';
 import { User } from '../utils/types';
-import { mungeDate } from '../utils/mungeGitHubData';
 
 const useFetchUsers = (): [User[], boolean, Function] => {
   const [users, setUsers] = useState<(User)[]>([]);
@@ -16,7 +15,6 @@ const useFetchUsers = (): [User[], boolean, Function] => {
         const snapshot = await getDocs(colRef);
         snapshot.docs.forEach(doc => {
           const user = doc.data() as User;
-          // user.created_at = mungeDate(user.created_at);
           userData.push(user);
         });
         setUsers(userData);

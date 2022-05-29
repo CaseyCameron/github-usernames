@@ -9,6 +9,10 @@ export type User = {
   created_at: string;
 };
 
+export type Users = {
+  users: User[]
+}
+
 export type FormProps = {
   formState: string;
   setFormState: Function;

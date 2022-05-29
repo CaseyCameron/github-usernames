@@ -1,9 +1,5 @@
 import GitHubUser from './GitHubUser';
-import { User } from '../../utils/types'
-
-type Users = {
-  users: User[]
-}
+import { Users } from '../../utils/types'
 
 const DisplayUsers = ({ users }: Users) => {
   return (
@@ -11,7 +7,7 @@ const DisplayUsers = ({ users }: Users) => {
       <div className="heading">Heading Info</div>
       {
         users.map(user => (
-          <GitHubUser {...user} key={user.name}/>
+          <GitHubUser {...user} key={user.login}/>
           // Change the key to users.id
         ))
       }
