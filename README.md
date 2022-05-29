@@ -38,6 +38,6 @@
     - following : number
     - created_at : date
 # Explanation of Architecture Decisions
-
+  As per the instructions - there's no submit button. Treating the input as a form to best support onSubmit with key: "enter."
 # How to Get App Up and Running
   - 
