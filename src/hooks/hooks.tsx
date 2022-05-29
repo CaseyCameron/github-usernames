@@ -11,22 +11,21 @@ const useFetchUsers = (): [User[], boolean, Function] => {
   useEffect(() => {
     const colRef = collection(db, 'users');
     let userData: User[] = [];
-
     const fetchData = async () => {
-      try {
+      try {        
         const snapshot = await getDocs(colRef);
         snapshot.docs.forEach(doc => {
           const user = doc.data() as User;
-          user.created_at = mungeDate(user.created_at);
+          // user.created_at = mungeDate(user.created_at);
           userData.push(user);
         });
         setUsers(userData);
-        setLoading(false);
       } catch (error: any) {
         console.log(error.message);
       }
     }
     fetchData();
+    setLoading(false);
   }, [loading]);
   return [users, loading, setLoading];
 };

@@ -8,6 +8,7 @@ type Users = {
 const DisplayUsers = ({ users }: Users) => {
   return (
     <div>
+      <div className="heading">Heading Info</div>
       {
         users.map(user => (
           <GitHubUser {...user} key={user.name}/>

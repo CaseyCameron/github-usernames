@@ -12,14 +12,13 @@ export default function GitHubUser({
 }: User) {
   return (
     <div className="github-user">
-      <div className="heading">Heading Info</div>
-      <div><a href={html_url}>{login}</a></div>
-      <div>{name}</div>
-      <div>{public_repos}</div>
-      <div>{public_gists}</div>
-      <div>{followers}</div>
-      <div>{following}</div>
-      <div>{created_at}</div>
+      <div><a href={html_url}>Profile: {login}</a></div>
+      <div>Name: {name || "null"}</div>
+      <div>Public Repos: {public_repos || "null"}</div>
+      <div>Public Gists: {public_gists || "null"}</div>
+      <div>Followers: {followers || "null"}</div>
+      <div>Following: {following || "null"}</div>
+      <div>Created At: {created_at || "null"}</div>
     </div>
   )
 }

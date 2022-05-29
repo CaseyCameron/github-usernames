@@ -13,11 +13,19 @@ const Home: React.FC = () => {
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
-    const userData = await fetchGitHubProfile(formState);
-    const mungedUser = mungeGitHubData(userData);
-    console.log('userData', mungedUser)
-
+    try {
+      const userData = await fetchGitHubProfile(formState);
+      const mungedUser = mungeGitHubData(userData);
+      console.log('munged', mungedUser);
+      const colRef = collection(db, 'users');
+      addDoc(colRef, mungedUser);
+      setLoading(true);
+      setFormState('');
+      // set the status message
+    } catch (error: any) {
+      console.log(error);
+      // set the status message
+    }
   }
 
   if (loading) return <div>Loading...</div>

@@ -11,7 +11,8 @@ export const mungeGitHubData = (userData: GitHubData) => {
   } = userData;
   // userData.created_at = created_at.getDate()
   const date = mungeDate(created_at);
-  return { login, html_url, name, public_repos, public_gists, followers, following, date }
+  
+  return { login, html_url, name, public_repos, public_gists, followers, following, created_at: date }
 }
 
 export const mungeDate = (date: string) => {
