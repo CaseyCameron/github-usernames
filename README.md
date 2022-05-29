@@ -15,9 +15,9 @@
         - sets the status message
   - /components
     - Header (simple header with title)
-    - Search (component with text box)
+    - UserForm (component with text box)
     - SearchStatus (component to render status message)
-    - Results (component to render gitHubProfiles)
+    - DisplayUsers (component to render gitHubProfiles)
   - /hooks
     - useFetchUsernames
   - /services
