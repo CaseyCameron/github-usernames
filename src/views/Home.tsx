@@ -7,10 +7,12 @@ import Header from '../components/Display/Header';
 import { mungeGitHubData } from '../utils/mungeGitHubData';
 import { useFetchUsers } from '../hooks/hooks';
 import UserForm from '../components/UserForm/UserForm';
+import StatusMessage from '../components/Display/StatusMessage';
 
 const Home: React.FC = () => {
   const [users, loading, setLoading] = useFetchUsers();
   const [formState, setFormState] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -35,7 +37,7 @@ const Home: React.FC = () => {
       <Header />
       <div className={home}>
         <UserForm formState={formState} setFormState={setFormState} handleSubmit={handleSubmit}/>
-        <span>Status Message Will Go Here</span>
+        <StatusMessage />
         <DisplayUsers users={users}/>
       </div>
     </>

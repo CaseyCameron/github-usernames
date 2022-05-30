@@ -9,7 +9,7 @@ export default function UserForm({ formState, setFormState, handleSubmit }: Form
   return (
     <div className={form}>
       <form onSubmit={handleSubmit}>
-        <label className={label}>Enter GitHub Username</label>
+        <label className={label}>Save GitHub Username to Database</label>
         <input className={input}
           type="text"
           name="username"
