@@ -13,8 +13,8 @@ import fetchUserData from '../utils/fetchData';
 const Home: React.FC = () => {
   const [formState, setFormState] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
-  const [users, setUsers] = useState<(User)[]>([]);
   const [statusMessage, setStatusMessage] = useState<string>('');
+  const [users, setUsers] = useState<(User)[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,11 +28,12 @@ const Home: React.FC = () => {
     }
     fetchData();
     setLoading(false);
-  }, [loading]);
+  }, []);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const colRef = collection(db, 'users');
+    setLoading(true);
     try {
       // try to fetch the GitHub profile, munge the date, then add
       const userData = await fetchGitHubProfile(formState);
@@ -45,6 +46,7 @@ const Home: React.FC = () => {
 
       setFormState('');
       setStatusMessage('Success');
+      setLoading(false);
     } catch (error) {
       setStatusMessage('Error');
     }

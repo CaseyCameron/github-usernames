@@ -3,7 +3,7 @@
   - /views
     - Home
       - State:
-        - custom hook to fetch usernames, state for status message and input
+        - formState, loading, status message, users
       - handleSubmit function
         - fetches a GitHub Profile if there is a profile and adds the profile to Firestore
         - sets loading to true (probable rendering dependency)
@@ -32,14 +32,15 @@
     - public_gists : number
     - followers : number
     - following : number
-    - created_at : date
+    - created_at : string
 # Explanation of Architecture Decisions
   - As per the instructions - there's no submit button. Treating the input as a form to best support onSubmit with key: "enter."
-  - Adopted an architecture using views and (largely) dummy components. These presentational components, aside from UserForm, have no state or logic and only display data. The UserForm has one handleChange function to deal with setting the input. 
-  - the useEffect's dependency is loading state so that it can be easily triggered with the handleSubmit. 
+  - Adopted an architecture using views and (largely) dummy components. These presentational components, aside from UserForm, have no state or logic and display data only. The UserForm has one handleChange function to deal with setting the input onChange. 
+  - the useEffect's dependency is empty. It only needs rendering on page load. GitHub profiles added with the submitHandler will update state, triggering another reload. 
 
 # Example of a Problem and How I Solved it
-  - Originally using a custom hook for the useEffect and state dealing with data, pivoted  after recalling custom hooks can only be called from React Functional Components and not a submit handler. This clutters Home.tsx but the logic there is straightforward and understandable. 
+  - I originally used a custom hook for the useEffect and state dealing with firestore data. I pivoted  after recalling custom hooks can only be called from React Functional Components and not a submit handler.
+  - Originally I was using loading to trigger the useEffect but realized with the setLoading logic I employed, this would cause unnecessary renders. I changed the dependency array to empty and allowed the submitHandler to trigger a rerender with a `users` state change. Also was reminded that if `<App />` is wrapped by create-react-app's default `<React.StrictMode>` it will render components twice.
 
 # 3rd Party Tools
   - For utils/mungeGitHubData, I used http://json2ts.com/ to quickly convert the GitHub json object into an interface. 
