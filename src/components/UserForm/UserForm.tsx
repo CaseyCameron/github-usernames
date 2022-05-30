@@ -19,9 +19,11 @@ export default function UserForm({ formState, setFormState, handleSubmit }: Form
           type="text"
           name="username"
           value={formState}
+          placeholder="Enter GitHub Username"
           onChange={handleChange}
         />
       </form>
+      <div className="text-gray-300 text-xs text-right">Press "Enter" to Save</div>
     </div>
   )
 }

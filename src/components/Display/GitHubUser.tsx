@@ -12,7 +12,7 @@ export default function GitHubUser({
 }: User) {
   return (
     <>
-      <td><a href={html_url}>{login}</a></td>
+      <td><a href={html_url} className="text-blue-500 underline">{login}</a></td>
       <td>{name || "null"}</td>
       <td>{public_repos || "null"}</td>
       <td>{public_gists || "null"}</td>
