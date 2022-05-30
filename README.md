@@ -1,46 +1,64 @@
-# Getting Started with Create React App
+# Planning Outline
+  ## File tree
+  - /views
+    - Home
+      - State:
+        - formState, loading, status message, users
+      - handleSubmit function
+        - fetches a GitHub Profile if there is a profile and adds the profile to Firestore
+        - sets loading to true ~~(probable rendering dependency)~~
+        - resets the input 
+        - sets the status message
+  - /components
+    - Header (simple header with title)
+    - UserForm (component with text box)
+    - StatusMessage (component to render status message)
+    - DisplayUsers (component to render gitHubProfiles)
+  - ~~/hooks~~ (DELETED - overcomplicated rendering functionality)
+    ~~- useFetchUsernames~~
+  - /services
+    - fetchGitHubProfile
+    - client.tsx - connect to FireStore
+  - /utils
+    - types
+    - fetchProfiles (get saved profiles from FireStore)
+    - addProfile (add new profile to FireStore)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  ## NoSQL document setup:
+    - username : string
+    - profile link : string
+    - name : string
+    - public_repos : number
+    - public_gists : number
+    - followers : number
+    - following : number
+    - created_at : string
+# Explanation of Architecture Decisions
+  - As per the instructions - there's no submit button. Treating the input as a form to best support onSubmit with key: "enter."
+  - Adopted an architecture using views and (largely) dummy components. These presentational components, aside from UserForm, have no state or logic and display data only. The UserForm has one handleChange function to deal with setting the input onChange. 
+  - the useEffect's dependency is empty. It only needs rendering on page load. GitHub profiles added with the submitHandler will update state, triggering another reload. 
 
-## Available Scripts
+# Example of a Problem and How I Solved it
+  - I originally used a custom hook for the useEffect and state dealing with firestore data. I pivoted  after recalling custom hooks can only be called from React Functional Components and not a submit handler.
+  - Originally I was using loading to trigger the useEffect but realized with the setLoading logic I employed, this would cause unnecessary renders. I changed the dependency array to empty and allowed the submitHandler to trigger a rerender with a `users` state change. Also was reminded that if `<App />` is wrapped by create-react-app's default `<React.StrictMode>` it will render components twice.
+  - With testing, it wasn't clear how I would access the href link on my username data. I couldn't use a .find or .href as I hadn't typed my value as an HTMLAnchorElement.
+  - Listing out the values in the table, many columns in a row could contain a duplicate value. Finding an ideal solution for asserting the values in these cells meant using the data-testid query.
 
-In the project directory, you can run:
+# 3rd Party Tools
+  - For utils/mungeGitHubData, I used http://json2ts.com/ to quickly convert the GitHub json object into an interface. 
+  - I used tailwind for quick and efficient styling. I prefer the ease of use and setup to traditional css. 
 
-### `npm start`
+# How to Get the App Up and Running
+  - Visit the deployed site on [Netlify](link here)
+  - Or clone the site from [GitHub](https://github.com/CaseyCameron/github-usernames)
+    - In your terminal, choose a base folder, type `git clone https://github.com/CaseyCameron/github-usernames`
+    - After successful clone, cd into the directory with `cd github-usernames`
+    - If using VSCode, type `code .`
+    - Open the terminal in VSCode.
+    - Type `npm i`
+    - After successful install type `npm start`
+    - The credentials to firestore are baked in so you should be able to add and retrieve names
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Considerations
+  - As an error message can be many types, I decided to cast it as type any.
+  - Decided to manipulate the date timestamp as a string for ease of use.
