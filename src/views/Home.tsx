@@ -3,40 +3,53 @@ import { addDoc, collection } from 'firebase/firestore/lite';
 import { db } from '../services/client';
 import DisplayUsers from '../components/Display/DisplayUsers';
 import { fetchGitHubProfile } from '../services/fetchGitHubProfile';
+import Header from '../components/Display/Header';
 import { mungeGitHubData } from '../utils/mungeGitHubData';
 import { useFetchUsers } from '../hooks/hooks';
 import UserForm from '../components/UserForm/UserForm';
+import StatusMessage from '../components/Display/StatusMessage';
 
 const Home: React.FC = () => {
   const [users, loading, setLoading] = useFetchUsers();
   const [formState, setFormState] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const userData = await fetchGitHubProfile(formState);
       const mungedUser = mungeGitHubData(userData);
-      console.log('munged', mungedUser);
       const colRef = collection(db, 'users');
       addDoc(colRef, mungedUser);
-      setLoading(true);
       setFormState('');
-      // set the status message
+      setStatusMessage('Success');
     } catch (error: any) {
-      console.log(error);
-      // set the status message
+      setStatusMessage('Error');
     }
+    setLoading(false);
   }
 
   if (loading) return <div>Loading...</div>
   return (
-    <div className="App">
-      <h1>GitHub Usernames</h1>
-      <UserForm formState={formState} setFormState={setFormState} handleSubmit={handleSubmit}/>
-      <span>Status Message Will Go Here</span>
-      <DisplayUsers users={users}/>
-    </div>
+    <>
+      <Header />
+      <div className={home}>
+        <UserForm formState={formState} setFormState={setFormState} handleSubmit={handleSubmit}/>
+        <StatusMessage statusMessage={statusMessage}/>
+        <DisplayUsers users={users}/>
+      </div>
+    </>
   );
 }
 
 export default Home;
+
+const home = `
+  flex
+  flex-col
+  justify-center
+  mx-5
+`
+  
+

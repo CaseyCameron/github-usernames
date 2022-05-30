@@ -16,7 +16,7 @@
   - /components
     - Header (simple header with title)
     - UserForm (component with text box)
-    - SearchStatus (component to render status message)
+    - StatusMessage (component to render status message)
     - DisplayUsers (component to render gitHubProfiles)
   - /hooks
     - useFetchUsernames
