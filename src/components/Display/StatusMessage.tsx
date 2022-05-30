@@ -17,4 +17,5 @@ const status = `
   shadow-sm
   rounded
   bg-slate-50
+  m-2
 `

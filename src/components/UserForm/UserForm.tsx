@@ -1,5 +1,10 @@
 import { ChangeEvent } from 'react'
-import { FormProps } from '../../utils/types';
+
+interface FormProps {
+  formState: string;
+  setFormState: Function;
+  handleSubmit: React.FormEventHandler<HTMLFormElement>;
+}
 
 export default function UserForm({ formState, setFormState, handleSubmit }: FormProps) {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
