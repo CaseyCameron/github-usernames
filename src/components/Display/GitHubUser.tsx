@@ -14,12 +14,12 @@ const GitHubUser = ({
   return (
     <>
       <td><a href={html_url} className="text-blue-500 underline">{login}</a></td>
-      <td>{name || "null"}</td>
-      <td>{public_repos || "null"}</td>
-      <td>{public_gists || "null"}</td>
-      <td>{followers || "null"}</td>
-      <td>{following || "null"}</td>
-      <td>{created_at || "null"}</td>
+      <td data-testid={`${login}-name`} >{name || "null"}</td>
+      <td data-testid={`${login}-repos`}>{public_repos || 0}</td>
+      <td data-testid={`${login}-gists`}>{public_gists || 0}</td>
+      <td data-testid={`${login}-followers`}>{followers || 0}</td>
+      <td data-testid={`${login}-following`}>{following || 0}</td>
+      <td>{created_at}</td>
     </>
   )
 }

@@ -14,14 +14,15 @@ const  UserForm = ({ formState, setFormState, handleSubmit }: FormProps) => {
   return (
     <div className={form}>
       <form onSubmit={handleSubmit}>
-        <label className={label}>Save GitHub Username to Database</label>
-        <input className={input}
-          type="text"
-          name="username"
-          value={formState}
-          placeholder="Enter GitHub Username"
-          onChange={handleChange}
-        />
+        <label className={label}>Save GitHub Username to Database
+          <input className={input}
+            type="text"
+            name="username"
+            value={formState}
+            placeholder="Enter GitHub Username"
+            onChange={handleChange}
+          />
+        </label>
       </form>
       <div className="text-gray-300 text-xs text-right">Press "Enter" to Save</div>
     </div>

@@ -35,9 +35,9 @@ const Home: React.FC = () => {
     const colRef = collection(db, 'users');
     setLoading(true);
     try {
-      // try to fetch the GitHub profile, munge the date, then add
-      const userData = await fetchGitHubProfile(formState);
-      const mungedUser = mungeGitHubData(userData);
+      // fetch the GitHub profile, munge date, return only needed data, then add to db
+      const gitHubUser = await fetchGitHubProfile(formState);
+      const mungedUser = mungeGitHubData(gitHubUser);
       await addDoc(colRef, mungedUser);
 
       // refetch the users & set users state to trigger rerender

@@ -6,7 +6,7 @@
         - formState, loading, status message, users
       - handleSubmit function
         - fetches a GitHub Profile if there is a profile and adds the profile to Firestore
-        - sets loading to true (probable rendering dependency)
+        - sets loading to true ~~(probable rendering dependency)~~
         - resets the input 
         - sets the status message
   - /components
@@ -14,7 +14,7 @@
     - UserForm (component with text box)
     - StatusMessage (component to render status message)
     - DisplayUsers (component to render gitHubProfiles)
-  - ~~/hooks~~ (DELETED - complicated rendering functionality)
+  - ~~/hooks~~ (DELETED - overcomplicated rendering functionality)
     ~~- useFetchUsernames~~
   - /services
     - fetchGitHubProfile
@@ -41,6 +41,8 @@
 # Example of a Problem and How I Solved it
   - I originally used a custom hook for the useEffect and state dealing with firestore data. I pivoted  after recalling custom hooks can only be called from React Functional Components and not a submit handler.
   - Originally I was using loading to trigger the useEffect but realized with the setLoading logic I employed, this would cause unnecessary renders. I changed the dependency array to empty and allowed the submitHandler to trigger a rerender with a `users` state change. Also was reminded that if `<App />` is wrapped by create-react-app's default `<React.StrictMode>` it will render components twice.
+  - With testing, it wasn't clear how I would access the href link on my username data. I couldn't use a .find or .href as I hadn't typed my value as an HTMLAnchorElement.
+  - Listing out the values in the table, many columns in a row could contain a duplicate value. Finding an ideal solution for asserting the values in these cells meant using the data-testid query.
 
 # 3rd Party Tools
   - For utils/mungeGitHubData, I used http://json2ts.com/ to quickly convert the GitHub json object into an interface. 
