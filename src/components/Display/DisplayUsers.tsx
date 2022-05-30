@@ -36,9 +36,10 @@ const DisplayUsers = ({ users }: Users) => {
 export default DisplayUsers;
 
 const heading = `
- table-fixed
+ table-auto
  border
  shadow-md
+ w-full
 `
 
 const tableRow = `
