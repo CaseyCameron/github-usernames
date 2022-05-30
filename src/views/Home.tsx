@@ -14,7 +14,7 @@ const Home: React.FC = () => {
   const [formState, setFormState] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     try {
       const userData = await fetchGitHubProfile(formState);
@@ -24,10 +24,10 @@ const Home: React.FC = () => {
       addDoc(colRef, mungedUser);
       setLoading(true);
       setFormState('');
-      // set the status message
+      setStatusMessage('Success');
     } catch (error: any) {
       console.log(error);
-      // set the status message
+      setStatusMessage('Error');
     }
   }
 
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
       <Header />
       <div className={home}>
         <UserForm formState={formState} setFormState={setFormState} handleSubmit={handleSubmit}/>
-        <StatusMessage />
+        <StatusMessage statusMessage={statusMessage}/>
         <DisplayUsers users={users}/>
       </div>
     </>

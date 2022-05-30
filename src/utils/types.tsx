@@ -16,5 +16,5 @@ export type Users = {
 export type FormProps = {
   formState: string;
   setFormState: Function;
-  handleSubmit: any;
+  handleSubmit: React.FormEventHandler<HTMLFormElement>;
 }
