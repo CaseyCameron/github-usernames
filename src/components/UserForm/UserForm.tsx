@@ -6,7 +6,7 @@ interface FormProps {
   handleSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
-export default function UserForm({ formState, setFormState, handleSubmit }: FormProps) {
+const  UserForm = ({ formState, setFormState, handleSubmit }: FormProps) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormState(event.target.value);
   }
@@ -27,6 +27,8 @@ export default function UserForm({ formState, setFormState, handleSubmit }: Form
     </div>
   )
 }
+
+export default UserForm;
 
 const form = `
   bg-white

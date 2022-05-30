@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore/lite';
 import { db } from '../services/client';
 import DisplayUsers from '../components/Display/DisplayUsers';
-import { fetchGitHubProfile } from '../services/fetchGitHubProfile';
+import fetchGitHubProfile from '../services/fetchGitHubProfile';
 import Header from '../components/Display/Header';
 import { mungeGitHubData } from '../utils/mungeGitHubData';
 import StatusMessage from '../components/Display/StatusMessage';
@@ -18,7 +18,8 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {     
+      // get users from the database
+      try {
         const gitHubUsers = await fetchUserData();
         setUsers(gitHubUsers);
       } catch (error: any) {
@@ -33,11 +34,15 @@ const Home: React.FC = () => {
     e.preventDefault();
     const colRef = collection(db, 'users');
     try {
+      // try to fetch the GitHub profile, munge the date, then add
       const userData = await fetchGitHubProfile(formState);
       const mungedUser = mungeGitHubData(userData);
       await addDoc(colRef, mungedUser);
+
+      // refetch the users & set users state to trigger rerender
       const gitHubUsers = await fetchUserData();
       setUsers(gitHubUsers);
+
       setFormState('');
       setStatusMessage('Success');
     } catch (error) {

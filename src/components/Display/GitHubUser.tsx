@@ -1,6 +1,6 @@
 import { User } from "../../utils/types"
 
-export default function GitHubUser({ 
+const GitHubUser = ({ 
   login, 
   html_url, 
   name, 
@@ -9,7 +9,8 @@ export default function GitHubUser({
   followers, 
   following, 
   created_at
-}: User) {
+}: User) => {
+
   return (
     <>
       <td><a href={html_url} className="text-blue-500 underline">{login}</a></td>
@@ -22,3 +23,5 @@ export default function GitHubUser({
     </>
   )
 }
+
+export default GitHubUser;

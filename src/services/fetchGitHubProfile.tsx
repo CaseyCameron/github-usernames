@@ -1,4 +1,4 @@
-export const fetchGitHubProfile = async (username: string) => {
+const fetchGitHubProfile = async (username: string) => {
   try {
     const data = await fetch(`https://api.github.com/users/${username}`)
     return data.json();
@@ -6,3 +6,5 @@ export const fetchGitHubProfile = async (username: string) => {
     console.log(error.message);
   }
 }
+
+export default fetchGitHubProfile;
