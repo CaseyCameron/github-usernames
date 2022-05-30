@@ -19,7 +19,7 @@ const GitHubUser = ({
       <td data-testid={`${login}-gists`}>{public_gists || 0}</td>
       <td data-testid={`${login}-followers`}>{followers || 0}</td>
       <td data-testid={`${login}-following`}>{following || 0}</td>
-      <td>{created_at}</td>
+      <td data-testid={`${login}-created_at`}>{created_at}</td>
     </>
   )
 }
