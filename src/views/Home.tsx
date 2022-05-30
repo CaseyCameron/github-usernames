@@ -3,6 +3,7 @@ import { addDoc, collection } from 'firebase/firestore/lite';
 import { db } from '../services/client';
 import DisplayUsers from '../components/Display/DisplayUsers';
 import { fetchGitHubProfile } from '../services/fetchGitHubProfile';
+import Header from '../components/Display/Header';
 import { mungeGitHubData } from '../utils/mungeGitHubData';
 import { useFetchUsers } from '../hooks/hooks';
 import UserForm from '../components/UserForm/UserForm';
@@ -30,13 +31,24 @@ const Home: React.FC = () => {
 
   if (loading) return <div>Loading...</div>
   return (
-    <div className="App">
-      <h1>GitHub Usernames</h1>
-      <UserForm formState={formState} setFormState={setFormState} handleSubmit={handleSubmit}/>
-      <span>Status Message Will Go Here</span>
-      <DisplayUsers users={users}/>
-    </div>
+    <>
+      <Header />
+      <div className={home}>
+        <UserForm formState={formState} setFormState={setFormState} handleSubmit={handleSubmit}/>
+        <span>Status Message Will Go Here</span>
+        <DisplayUsers users={users}/>
+      </div>
+    </>
   );
 }
 
 export default Home;
+
+const home = `
+  flex
+  flex-col
+  justify-center
+  mx-5
+`
+  
+
