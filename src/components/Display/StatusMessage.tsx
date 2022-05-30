@@ -5,7 +5,7 @@ interface StatusMessageProps {
 const StatusMessage = ({statusMessage}: StatusMessageProps) => {
   return (
     <div className={status}>
-      Status: <span className="text-gray-700">{statusMessage}</span>
+      Status: <span className={statusMessage === "Success" ? "text-green-700" : "text-red-700"}>{statusMessage}</span>
     </div>
   )
 }

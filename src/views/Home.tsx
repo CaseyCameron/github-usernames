@@ -25,7 +25,6 @@ const Home: React.FC = () => {
       setFormState('');
       setStatusMessage('Success');
     } catch (error: any) {
-      console.log(error);
       setStatusMessage('Error');
     }
     setLoading(false);
