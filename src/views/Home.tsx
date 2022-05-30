@@ -1,33 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore/lite';
 import { db } from '../services/client';
 import DisplayUsers from '../components/Display/DisplayUsers';
 import { fetchGitHubProfile } from '../services/fetchGitHubProfile';
 import Header from '../components/Display/Header';
 import { mungeGitHubData } from '../utils/mungeGitHubData';
-import { useFetchUsers } from '../hooks/hooks';
-import UserForm from '../components/UserForm/UserForm';
 import StatusMessage from '../components/Display/StatusMessage';
+import UserForm from '../components/UserForm/UserForm';
+import { User } from '../utils/types';
+import fetchUserData from '../utils/fetchData';
 
 const Home: React.FC = () => {
-  const [users, loading, setLoading] = useFetchUsers();
-  const [formState, setFormState] = useState('');
-  const [statusMessage, setStatusMessage] = useState('');
+  const [formState, setFormState] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [users, setUsers] = useState<(User)[]>([]);
+  const [statusMessage, setStatusMessage] = useState<string>('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {     
+        const gitHubUsers = await fetchUserData();
+        setUsers(gitHubUsers);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    }
+    fetchData();
+    setLoading(false);
+  }, [loading]);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    const colRef = collection(db, 'users');
     try {
-      setLoading(true);
       const userData = await fetchGitHubProfile(formState);
       const mungedUser = mungeGitHubData(userData);
-      const colRef = collection(db, 'users');
-      addDoc(colRef, mungedUser);
+      await addDoc(colRef, mungedUser);
+      const gitHubUsers = await fetchUserData();
+      setUsers(gitHubUsers);
       setFormState('');
       setStatusMessage('Success');
-    } catch (error: any) {
+    } catch (error) {
       setStatusMessage('Error');
     }
-    setLoading(false);
   }
 
   if (loading) return <div>Loading...</div>
@@ -51,5 +66,3 @@ const home = `
   justify-center
   mx-5
 `
-  
-
