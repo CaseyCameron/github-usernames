@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import DisplayUsers from './DisplayUsers';
 import { User } from '../../utils/types';
@@ -26,7 +25,7 @@ const values: User[] = [
   },
 ]
 
-test('renders each major element', () => {
+test('renders each user in a table', () => {
   render(<DisplayUsers users={values}/>);
   
   // validate one table row at a time
