@@ -50,6 +50,7 @@ const Home: React.FC = () => {
     } catch (error) {
       setStatusMessage('Error');
     }
+    setLoading(false);
   }
 
   if (loading) return <div>Loading...</div>
@@ -72,4 +73,5 @@ const home = `
   flex-col
   justify-center
   mx-5
+  w-auto
 `
